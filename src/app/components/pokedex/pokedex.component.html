@@ -1,0 +1,49 @@
+<div class="pokedex-container">
+  <div class="screen">
+    <ng-container *ngIf="!loading && !found">
+      <span class="error-message">
+        {{ errorMessage }}
+      </span>
+    </ng-container>
+
+    <div class="pokemon-data">
+      <ng-container *ngIf="!loading && found">
+        <img src="{{ pokemonData.sprite }}">
+        <div class="details">
+          <div>ID: {{ pokemonData.id }}</div>
+          <div>Name: {{ pokemonData.name }}</div>
+          <div>
+            Types: 
+            <ng-container *ngFor="let type of pokemonData.types; let i = index">
+              {{ type }}
+              <ng-container *ngIf="pokemonData.types.length > 1 && i !== pokemonData.types.length-1">,</ng-container>
+            </ng-container>
+          </div>
+          <div>
+            Abilities:
+            <ng-container *ngFor="let ability of pokemonData.abilities; let i = index">
+              {{ ability }}
+              <ng-container *ngIf="pokemonData.abilities.length > 1 && i !== pokemonData.abilities.length-1">,</ng-container>
+            </ng-container>
+          </div>
+          <div>HP: {{ pokemonData.stats.hp }}</div>
+          <div>ATK: {{ pokemonData.stats.atk }}</div>
+          <div>DEF: {{ pokemonData.stats.def }}</div>
+          <div>SPATK: {{ pokemonData.stats.spAtk }}</div>
+          <div>SPDEF: {{ pokemonData.stats.spDef }}</div>
+          <div>SPD: {{ pokemonData.stats.spd }}</div>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+
+  <h3>Input the name of the Pokemon you want to know more about</h3>
+
+  <div class="search-container">
+    <input type="text" name="pokemonSearch" value (keyup)="onKey($event)">
+    <div class="button-container">
+      <button (click)="getPokemon(pokemonSearch)" mat-button>Search!</button>
+      <button (click)="back()" mat-button>Go Back</button>
+    </div>
+  </div>
+</div>
